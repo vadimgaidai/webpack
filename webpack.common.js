@@ -1,17 +1,23 @@
-const path = require('path');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
-
-
+const webpack = require('webpack');
 
 module.exports = {
     entry: {
-        index: './index.js'
+        app: './index.js',
     },
+
+    module: {
+        rules: [
+            {
+                test: /\.js$/,
+                exclude: /node_modules/,
+                loader: 'babel-loader',
+            },
+        ],
+    },
+
     plugins: [
-        new CleanWebpackPlugin(['production']),
+        new webpack.EnvironmentPlugin([
+            'NODE_ENV',
+        ]),
     ],
-    output: {
-       filename: '[name].bundle.js',
-        path: path.resolve(__dirname, 'production')
-    }
- };
+};

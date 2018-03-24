@@ -4,9 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "webpack-dev-server --open --config webpack.development.js",
-    "build": "webpack --config webpack.production.js"
+    "build": "NODE_ENV=production webpack --config webpack/webpack.production.js",
+    "dev": "NODE_ENV=development webpack-dev-server --config webpack/webpack.development.js"
   },
   "keywords": [],
   "author": "",
@@ -18,6 +17,7 @@
     "clean-webpack-plugin": "^0.1.19",
     "css-loader": "^0.28.11",
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
+    "image-webpack-loader": "^4.2.0",
     "node-sass": "^4.7.2",
     "sass-loader": "^6.0.7",
     "style-loader": "^0.20.3",
