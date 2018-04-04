@@ -4,12 +4,12 @@ const path = require('path');
 //plugins
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
-
-
-
 const extractSass = new ExtractTextPlugin({
-    filename: 'css/[name].css'
+    filename: '../css/[name].css'
+
 });
+
+
 
 
 
@@ -18,15 +18,15 @@ const sassExtractor = () => {
         use: [{
             loader: "css-loader",
             options: {
-                sourceMap: true
-
+                sourceMap: true,
+                root: path.resolve(__dirname, 'app')
                 //minimize: (process.env.NODE_ENV === 'production')
             }
         }, {
             loader: "sass-loader",
             options: {
                 sourceMap: true,
-                root: path.resolve(__dirname, 'src'),
+
                 includePaths: [
                     'node_modules/'
 
@@ -47,20 +47,20 @@ const sassExtractor = () => {
 
 module.exports = {
     //базовый путь к проекту
-    context: path.resolve(__dirname, "src"),
+    context: path.resolve(__dirname, "app"),
 
-    //настройки точки входа js
+    //настройки точки входа entry
     entry: {
         //основной файл приложения
-        app: [path.resolve(__dirname, 'src',  'app.js')]
+        app: [path.resolve(__dirname,  'app', 'source', 'entry', 'app.js')]
 
     },
-    //путь дял собранных файлов
+    //путь собранных файлов
     output: {
         filename: 'js/[name].js',
         chunkFilename: '[name].[chunkhash].js',
-        path: path.resolve(__dirname, 'dist'),
-        publicPath: '../'
+        path: path.resolve(__dirname, 'app', 'public')
+
     },
     stats: {
         assets: true,
@@ -74,13 +74,10 @@ module.exports = {
         rules: [
 
             {
-                test: /\.sass$/,
+                test: /\.(sass|css)$/i,
                 use: sassExtractor()
             },
-            {
-                test: /\.css$/,
-                use: sassExtractor()
-            },
+
             {
                 test: /\.js$/,
                 loader: 'babel-loader',
@@ -88,46 +85,19 @@ module.exports = {
                     presets: ["env"]
                 }
             }
-               /* test: /\.(sass)$/,
-                use: ExtractTextPlugin.extract({
-                    fallback: 'style-loader',
-                    use: [
-                        {
-                            loader: 'sass-loader',
-                            options: {
-                                sourceMap: true
-                            }
-                        },
-                        {
-                            loader: 'css-loader',
-                            options: {
-                                sourceMap: true
-                            }
-                        },
-                    ],
-                    fallback: 'style-loader'
-                })*/
-
 
         ]
     },
     resolve: {
-        // options for resolving module requests
-        // (does not apply to resolving to loaders)
 
-       /* modules: [
-            path.resolve(__dirname, "node_modules"),
-            path.resolve(__dirname, "resources")
-        ],*/
-
-
-        extensions: ['.js','.es6', '.css', '.sass']
+        extensions: ['.entry','.es6', '.css', '.sass']
     },
 
 
-   /* plugins: [
-        new ExtractTextPlugin("main.css")
-    ],*/
+    plugins: [
+        //new ExtractTextPlugin("main.css")
+       // extractSass
+    ],
 
 
     devtool: "source-map",
@@ -135,7 +105,7 @@ module.exports = {
 
     //конфигурация devServer
     devServer: {
-        contentBase: path.join(__dirname, 'dist'),
+        contentBase: path.join(__dirname, 'app', 'public'),
         port: 8080,
         compress: true,
         open: false
