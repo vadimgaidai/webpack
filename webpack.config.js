@@ -1,114 +1,45 @@
-const webpack = require('webpack');
-const path = require('path');
+let webpack = require('webpack');
+let path = require('path');
 
-//plugins
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
-
-const extractSass = new ExtractTextPlugin({
-    filename: '../css/[name].css'
-
-});
-
-
-
-
-
-const sassExtractor = () => {
-    return extractSass.extract({
-        use: [{
-            loader: "css-loader",
-            options: {
-                sourceMap: true,
-                root: path.resolve(__dirname, 'app')
-                //minimize: (process.env.NODE_ENV === 'production')
-            }
-        }, {
-            loader: "sass-loader",
-            options: {
-                sourceMap: true,
-
-                includePaths: [
-                    'node_modules/'
-
-                ]
-            }
-        }],
-        fallback: "style-loader"
-    })
-};
-
-
-
-
-
-
-//modules settings
-
-
-module.exports = {
-    //базовый путь к проекту
-    context: path.resolve(__dirname, "app"),
-
-    //настройки точки входа entry
-    entry: {
-        //основной файл приложения
-        app: [path.resolve(__dirname,  'app', 'source', 'entry', 'app.js')]
-
-    },
-    //путь собранных файлов
+let conf = {
+    entry: './app/source/entry/entry.js',
     output: {
-        filename: 'js/[name].js',
-        chunkFilename: '[name].[chunkhash].js',
-        path: path.resolve(__dirname, 'app', 'public')
+        path: path.resolve(__dirname, './app/public/'),
+        filename: 'js/[name].bundle.js',
+        publicPath: 'app/public'
 
     },
-    stats: {
-        assets: true,
-        colors: true,
-        errors: true,
-        errorDetails: true,
-        hash: true
+    devServer:{
+        compress: true,
+        overlay: true,
+        open: true
     },
-    module: {
-        //правила обработки
+    module:{
         rules: [
-
-            {
-                test: /\.(sass|css)$/i,
-                use: sassExtractor()
-            },
-
             {
                 test: /\.js$/,
                 loader: 'babel-loader',
-                options: {
-                    presets: ["env"]
-                }
-            }
+                //execlude: '/node_modules/'
+            },
+            {
+                test: /\.css$/,
+                loader: '-loader',
 
+            }
         ]
     },
-    resolve: {
-
-        extensions: ['.entry','.es6', '.css', '.sass']
-    },
+    devtool: "eval-sourcemap"
 
 
-    plugins: [
-        //new ExtractTextPlugin("main.css")
-       // extractSass
-    ],
+};
+
+module.exports = (env, options) => {
+    let prodaction = options.mode === 'production';
+
+    conf.devtool = prodaction
+                            ?   "source-map"
+                            :   "eval-sourcemap";
 
 
-    devtool: "source-map",
-
-
-    //конфигурация devServer
-    devServer: {
-        contentBase: path.join(__dirname, 'app', 'public'),
-        port: 8080,
-        compress: true,
-        open: false
-
-    }
+    return conf;
 }
