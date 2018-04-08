@@ -1,5 +1,13 @@
 let webpack = require('webpack');
 let path = require('path');
+let ExtractTextPlugin = require("extract-text-webpack-plugin");
+
+
+let extractStyle = new ExtractTextPlugin({
+    filename: "css/[name].bundle.css"
+
+});
+
 
 let conf = {
     entry: './app/source/entry/entry.js',
@@ -22,13 +30,30 @@ let conf = {
                 //execlude: '/node_modules/'
             },
             {
-                test: /\.css$/,
-                loader: '-loader',
+                test: /\.(css|sass)$/i,
+                use: extractStyle.extract({
+                    use: [{
+                        loader: "css-loader"
 
+                    }, {
+                        loader: "sass-loader"
+                    }],
+                    // use style-loader in development
+                    fallback: "style-loader"
+                })
             }
         ]
     },
+
+    plugins: [
+        extractStyle
+    ],
+
+
     devtool: "eval-sourcemap"
+
+
+
 
 
 };

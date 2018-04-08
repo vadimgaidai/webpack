@@ -1,4 +1,4 @@
-//import '../sass/main.sass'
+import '../sass/main.sass'
 
 import hello from './hello.js';
 
