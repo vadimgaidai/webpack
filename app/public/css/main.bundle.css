@@ -1,2 +1,11 @@
 body {
-  background: red; }
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  margin: auto;
+  color: red;
+  background: red;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}

@@ -1,11 +1,14 @@
 let webpack = require('webpack');
 let path = require('path');
+
+
 let ExtractTextPlugin = require("extract-text-webpack-plugin");
+let autoprefixer = require('autoprefixer');
 
 
 let extractStyle = new ExtractTextPlugin({
     filename: "css/[name].bundle.css"
-
+    //disable: (process.env.NODE_ENV === 'development')
 });
 
 
@@ -32,12 +35,36 @@ let conf = {
             {
                 test: /\.(css|sass)$/i,
                 use: extractStyle.extract({
-                    use: [{
-                        loader: "css-loader"
+                    use: [
+                        {
+                            loader: 'css-loader',
+                            options: {
+                                sourceMap: true
+                            }
 
-                    }, {
-                        loader: "sass-loader"
-                    }],
+                        },
+                        {
+                            loader: 'postcss-loader',
+                            options: {
+                                plugins: [
+                                    autoprefixer({
+                                        browsers:['ie >= 8', 'last 4 version']
+                                    })
+                                ],
+                                sourceMap: true
+                            }
+                        },
+                        {
+                            loader: 'group-css-media-queries-loader'
+                        },
+
+                        {
+                            loader: 'sass-loader',
+                            options: {
+                                sourceMap: true
+                            }
+                        }
+                    ],
                     // use style-loader in development
                     fallback: "style-loader"
                 })
@@ -60,6 +87,8 @@ let conf = {
 
 module.exports = (env, options) => {
     let prodaction = options.mode === 'production';
+
+
 
     conf.devtool = prodaction
                             ?   "source-map"
