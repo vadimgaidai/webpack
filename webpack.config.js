@@ -20,6 +20,13 @@ let conf = {
         publicPath: 'app/public'
 
     },
+    stats: { //object
+        assets: true,
+        colors: true,
+        errors: true,
+        errorDetails: true,
+        hash: true
+    },
     devServer:{
         compress: true,
         overlay: true,
@@ -43,6 +50,7 @@ let conf = {
                             }
 
                         },
+
                         {
                             loader: 'postcss-loader',
                             options: {
@@ -54,20 +62,48 @@ let conf = {
                                 sourceMap: true
                             }
                         },
-                        {
-                            loader: 'group-css-media-queries-loader'
-                        },
-
+                        'group-css-media-queries-loader',
                         {
                             loader: 'sass-loader',
                             options: {
                                 sourceMap: true
                             }
                         }
+
                     ],
                     // use style-loader in development
                     fallback: "style-loader"
                 })
+            },
+            {
+                test: /\.pug$/,
+                use: [
+                    {
+                        loader: 'file-loader',
+                        options: {
+                            name: '[name].html'
+                        }
+                    },
+                    {
+                        loader: 'extract-loader'
+                    },
+                    {
+                        loader: "html-loader",
+                        /*options: {
+                            ignoreCustomFragments: [/\{\{.*?}}/],
+                            root: path.resolve(__dirname, 'resources'),
+                            interpolate: 'require',
+                            attrs: ['img:src']
+                        }*/
+                    },
+                    {
+                        loader: 'pug-loader',
+                        options: {
+                            pretty: true
+                        }
+
+                    }
+                ]
             }
         ]
     },
