@@ -84,20 +84,9 @@ let conf = {
                             name: '[name].html'
                         }
                     },
+
                     {
-                        loader: 'extract-loader'
-                    },
-                    {
-                        loader: "html-loader",
-                        /*options: {
-                            ignoreCustomFragments: [/\{\{.*?}}/],
-                            root: path.resolve(__dirname, 'resources'),
-                            interpolate: 'require',
-                            attrs: ['img:src']
-                        }*/
-                    },
-                    {
-                        loader: 'pug-loader',
+                        loader: 'pug-html-loader',
                         options: {
                             pretty: true
                         }
