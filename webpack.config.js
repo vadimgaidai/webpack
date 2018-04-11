@@ -13,11 +13,12 @@ let extractStyle = new ExtractTextPlugin({
 
 
 let conf = {
+
     entry: './app/source/entry/entry.js',
     output: {
-        path: path.resolve(__dirname, './app/public/'),
+        path: path.resolve(__dirname, './dist/'),
         filename: 'js/[name].bundle.js',
-        publicPath: 'app/public'
+        publicPath: 'dist'
 
     },
     stats: { //object
@@ -93,7 +94,22 @@ let conf = {
 
                     }
                 ]
+            },
+            {
+                test: /\.(jpg|png|gif|ico)$/i,
+                use: [
+                    {
+                        loader: 'file-loader',
+                        options: {
+                            name: '[path][name].[ext]'
+
+                        }
+
+                    }
+                ]
+
             }
+
         ]
     },
 
