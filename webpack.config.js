@@ -8,12 +8,11 @@ let autoprefixer = require('autoprefixer');
 
 let extractStyle = new ExtractTextPlugin({
     filename: "css/[name].bundle.css"
-    //disable: (process.env.NODE_ENV === 'development')
+
 });
 
 
 let conf = {
-
     entry: './app/source/entry/entry.js',
     output: {
         path: path.resolve(__dirname, './dist/'),
@@ -96,18 +95,32 @@ let conf = {
                 ]
             },
             {
-                test: /\.(jpg|png|gif|ico)$/i,
+                test: /\.(jpe?g|png|gif|svg|ico)$/i,
                 use: [
                     {
                         loader: 'file-loader',
                         options: {
-                            name: '[path][name].[ext]'
-
+                            name: 'images/[name].[ext]'
                         }
-
                     }
+                ],
+                exclude: [path.resolve(__dirname, 'app', 'public', 'fonts')]
+            },
+            {
+                test: /\.(woff|woff2|eot|ttf|otf|svg)(\?.*$|$)/,
+                use: [
+                    {
+                        loader: 'file-loader',
+                        options: {
+                            name: 'fonts/[name].[ext]',
+                            publicPath: '../'
+                        }
+                    }
+                ],
+                include: [
+                    path.resolve(__dirname, 'node_modules'),
+                    path.resolve(__dirname, 'resources', 'public', 'fonts')
                 ]
-
             }
 
         ]
