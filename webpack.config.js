@@ -15,9 +15,9 @@ let extractStyle = new ExtractTextPlugin({
 let conf = {
     entry: './app/source/entry/entry.js',
     output: {
-        path: path.resolve(__dirname, './dist/'),
+        path: path.resolve(__dirname, './app/public'),
         filename: 'js/[name].bundle.js',
-        publicPath: 'dist'
+        publicPath: '/'
 
     },
     stats: { //object
@@ -47,7 +47,9 @@ let conf = {
                             loader: 'css-loader',
                             options: {
                                 sourceMap: true
+
                             }
+
 
                         },
 
@@ -100,11 +102,35 @@ let conf = {
                     {
                         loader: 'file-loader',
                         options: {
-                            name: 'images/[name].[ext]'
+                            name: '[path][name].[ext]'
                         }
-                    }
-                ],
-                exclude: [path.resolve(__dirname, 'app', 'public', 'fonts')]
+                    },
+                    /*{
+                        loader: 'img-loader',
+                        options: {
+                            enabled: process.env.NODE_ENV === 'production',
+                            gifsicle: {
+                                interlaced: false
+                            },
+                            mozjpeg: {
+                                progressive: true,
+                                arithmetic: false
+                            },
+                            optipng: false, // disabled
+                            pngquant: {
+                                floyd: 0.5,
+                                speed: 2
+                            },
+                            svgo: {
+                                plugins: [
+                                    { removeTitle: true },
+                                    { convertPathData: false }
+                                ]
+                            }
+                        }
+                    }*/
+
+                ]
             },
             {
                 test: /\.(woff|woff2|eot|ttf|otf|svg)(\?.*$|$)/,
@@ -112,16 +138,15 @@ let conf = {
                     {
                         loader: 'file-loader',
                         options: {
-                            name: 'fonts/[name].[ext]',
-                            publicPath: '../'
+                            name: '[path][name].[ext]'
+
                         }
                     }
-                ],
-                include: [
-                    path.resolve(__dirname, 'node_modules'),
-                    path.resolve(__dirname, 'resources', 'public', 'fonts')
                 ]
+
+
             }
+
 
         ]
     },
@@ -131,7 +156,7 @@ let conf = {
     ],
 
 
-    devtool: "eval-sourcemap"
+    devtool: "eval-source-map"
 
 
 
@@ -142,11 +167,9 @@ let conf = {
 module.exports = (env, options) => {
     let prodaction = options.mode === 'production';
 
-
-
     conf.devtool = prodaction
                             ?   "source-map"
-                            :   "eval-sourcemap";
+                            :   "eval-source-map";
 
 
     return conf;

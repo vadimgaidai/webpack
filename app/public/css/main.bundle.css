@@ -76,6 +76,8 @@ main {
 
 footer {
   width: 100%;
+  height: 30px;
+  background: url("/hello.png");
 }
 
 @media (min-width: 576px) {

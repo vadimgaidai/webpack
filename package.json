@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "webpack --mode development ",
     "watch": "webpack-dev-server --mode development ",
-    "build": "webpack --mode production "
+    "build": "webpack  --mode production "
   },
   "keywords": [],
   "author": "",
@@ -23,6 +23,7 @@
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
     "file-loader": "^1.1.11",
     "group-css-media-queries-loader": "^1.0.4",
+    "img-loader": "^2.0.1",
     "node-sass": "^4.8.3",
     "path": "^0.12.7",
     "postcss-loader": "^2.1.3",
