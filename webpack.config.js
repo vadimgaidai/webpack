@@ -4,6 +4,7 @@ let path = require('path');
 
 let ExtractTextPlugin = require("extract-text-webpack-plugin");
 let autoprefixer = require('autoprefixer');
+let CleanWebpackPlugin = require("clean-webpack-plugin");
 
 
 let extractStyle = new ExtractTextPlugin({
@@ -11,13 +12,16 @@ let extractStyle = new ExtractTextPlugin({
 
 });
 
+let ASSET_PATH = process.env.ASSET_PATH;
 
 let conf = {
     entry: './app/source/entry/entry.js',
     output: {
-        path: path.resolve(__dirname, './app/public'),
+        //path: path.resolve(__dirname, './app/public'),
         filename: 'js/[name].bundle.js',
-        publicPath: '/'
+        //publicPath: '/'
+        path: path.resolve(__dirname, 'build'),
+        publicPath: ASSET_PATH
 
     },
     stats: { //object
@@ -152,7 +156,8 @@ let conf = {
     },
 
     plugins: [
-        extractStyle
+        extractStyle,
+        new CleanWebpackPlugin(['build'])
     ],
 
 
