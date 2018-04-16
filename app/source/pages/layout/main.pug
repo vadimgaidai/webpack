@@ -1,24 +1,27 @@
-include mixins.pug
+include ~html-webpack-template-pug/mixins.pug
+
+include svg.pug
 doctype html 
-html 
+html(lang='RU', manifest=htmlWebpackPlugin.files.manifest)
     head
         meta(charset = 'utf-8')
         meta(http-equiv="X-UA-Compatible" content="IE=edge")
-        meta(name="viewport" content="width=device-width, initial-scale=1")
+        +mobile
+        +favicon
         block title
             title Тестовая страница
 
-        //link(rel='stylesheet' href='/css/main.bundle.css')
-        <link rel="stylesheet" href="<%=htmlWebpackPlugin.files.chunks.main.css %>">
+        +injectCSS
+
         
         
     
     body
         block pagecontent
             
-        
 
-        script(src="/js/main.bundle.js" type="text/javascript")
+        +injectJS
+
         
         
         

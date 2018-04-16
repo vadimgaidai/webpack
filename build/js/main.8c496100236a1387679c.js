@@ -127,7 +127,7 @@ eval("// .main scripts goes here\n//# sourceURL=[module]\n//# sourceMappingURL=d
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\n\n__webpack_require__(/*! ../sass/main.sass */ \"./app/source/sass/main.sass\");\n\n__webpack_require__(/*! ../pages/index.pug */ \"./app/source/pages/index.pug\");\n\n__webpack_require__(/*! ./master.js */ \"./app/source/entry/master.js\");//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9hcHAvc291cmNlL2VudHJ5L2VudHJ5LmpzPzQ0NjgiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7QUFBQTs7QUFFQTs7QUFFQSIsImZpbGUiOiIuL2FwcC9zb3VyY2UvZW50cnkvZW50cnkuanMuanMiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgJy4uL3Nhc3MvbWFpbi5zYXNzJ1xyXG5cclxuaW1wb3J0ICcuLi9wYWdlcy9pbmRleC5wdWcnXHJcblxyXG5pbXBvcnQgJy4vbWFzdGVyLmpzJztcclxuXHJcblxyXG5cclxuXHJcbiJdLCJzb3VyY2VSb290IjoiIn0=\n//# sourceURL=webpack-internal:///./app/source/entry/entry.js\n");
+eval("\n\n__webpack_require__(/*! ../sass/main.sass */ \"./app/source/sass/main.sass\");\n\n__webpack_require__(/*! ./master.js */ \"./app/source/entry/master.js\");//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9hcHAvc291cmNlL2VudHJ5L2VudHJ5LmpzPzQ0NjgiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7QUFBQTs7QUFJQSIsImZpbGUiOiIuL2FwcC9zb3VyY2UvZW50cnkvZW50cnkuanMuanMiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgJy4uL3Nhc3MvbWFpbi5zYXNzJ1xyXG5cclxuLy9pbXBvcnQgJy4uL3BhZ2VzL2luZGV4LnB1ZydcclxuXHJcbmltcG9ydCAnLi9tYXN0ZXIuanMnO1xyXG5cclxuXHJcblxyXG5cclxuIl0sInNvdXJjZVJvb3QiOiIifQ==\n//# sourceURL=webpack-internal:///./app/source/entry/entry.js\n");
 
 /***/ }),
 
@@ -140,17 +140,6 @@ eval("\n\n__webpack_require__(/*! ../sass/main.sass */ \"./app/source/sass/main.
 
 "use strict";
 eval("\n\n__webpack_require__(/*! ../blocks/index */ \"./app/source/blocks/index.js\");//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9hcHAvc291cmNlL2VudHJ5L21hc3Rlci5qcz84MGYxIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7O0FBQ0EiLCJmaWxlIjoiLi9hcHAvc291cmNlL2VudHJ5L21hc3Rlci5qcy5qcyIsInNvdXJjZXNDb250ZW50IjpbIlxyXG5pbXBvcnQgJy4uL2Jsb2Nrcy9pbmRleCdcclxuXHJcblxyXG4iXSwic291cmNlUm9vdCI6IiJ9\n//# sourceURL=webpack-internal:///./app/source/entry/master.js\n");
-
-/***/ }),
-
-/***/ "./app/source/pages/index.pug":
-/*!************************************!*\
-  !*** ./app/source/pages/index.pug ***!
-  \************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-eval("module.exports = __webpack_require__.p + \"index.html\";//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9hcHAvc291cmNlL3BhZ2VzL2luZGV4LnB1Zz8yZjI3Il0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBIiwiZmlsZSI6Ii4vYXBwL3NvdXJjZS9wYWdlcy9pbmRleC5wdWcuanMiLCJzb3VyY2VzQ29udGVudCI6WyJtb2R1bGUuZXhwb3J0cyA9IF9fd2VicGFja19wdWJsaWNfcGF0aF9fICsgXCJpbmRleC5odG1sXCI7Il0sInNvdXJjZVJvb3QiOiIifQ==\n//# sourceURL=webpack-internal:///./app/source/pages/index.pug\n");
 
 /***/ }),
 

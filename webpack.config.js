@@ -2,7 +2,7 @@ let webpack = require('webpack');
 let path = require('path');
 
 
-//let ExtractTextPlugin = require("extract-text-webpack-plugin");
+
 let autoprefixer = require('autoprefixer');
 let CleanWebpackPlugin = require("clean-webpack-plugin");
 let MiniCssExtractPlugin = require("mini-css-extract-plugin");
@@ -86,25 +86,7 @@ let conf = {
 
 
             },
-            {
-                test: /\.pug$/,
-                use: [
-                    {
-                        loader: 'file-loader',
-                        options: {
-                            name: '[name].html'
-                        }
-                    },
-                    {
-                        loader: 'pug-html-loader',
-                        options: {
-                            pretty: true
-                        }
 
-
-                    }
-                ]
-            },
             {
                 test: /\.(jpe?g|png|gif|svg|ico)$/i,
                 use: [
@@ -148,8 +130,15 @@ let conf = {
             filename: 'css/style.[contenthash].css',
         }),
         new CleanWebpackPlugin(['build']),
-        new WebpackMd5Hash()
+        new WebpackMd5Hash(),
+        new HtmlWebpackPlugin({
+            // Required
+            inject: false,
+            template: '!!pug-loader?pretty=true!app/source/pages/index.pug',
+            // Optional
+            mobile: true
 
+        })
 
     ],
 
