@@ -2,27 +2,25 @@ let webpack = require('webpack');
 let path = require('path');
 
 
-let ExtractTextPlugin = require("extract-text-webpack-plugin");
+//let ExtractTextPlugin = require("extract-text-webpack-plugin");
 let autoprefixer = require('autoprefixer');
 let CleanWebpackPlugin = require("clean-webpack-plugin");
+let MiniCssExtractPlugin = require("mini-css-extract-plugin");
+let WebpackMd5Hash = require('webpack-md5-hash');
+let HtmlWebpackPlugin = require('html-webpack-plugin');
 
 
-let extractStyle = new ExtractTextPlugin({
-    filename: "css/[name].bundle.css"
 
-});
-
-let ASSET_PATH = process.env.ASSET_PATH;
 
 let conf = {
+
     entry: './app/source/entry/entry.js',
+
     output: {
         //path: path.resolve(__dirname, './app/public'),
-        filename: 'js/[name].bundle.js',
-        //publicPath: '/'
+        filename: 'js/[name].[chunkhash].js',
         path: path.resolve(__dirname, 'build'),
-        publicPath: ASSET_PATH
-
+        publicPath: '/'
     },
     stats: { //object
         assets: true,
@@ -45,15 +43,23 @@ let conf = {
             },
             {
                 test: /\.(css|sass)$/i,
-                use: extractStyle.extract({
+
                     use: [
+                        {
+                            loader: 'style-loader',
+                            options: {
+                                sourceMap: true
+
+                            }
+
+                        },
+                        MiniCssExtractPlugin.loader,
                         {
                             loader: 'css-loader',
                             options: {
                                 sourceMap: true
 
                             }
-
 
                         },
 
@@ -76,10 +82,9 @@ let conf = {
                             }
                         }
 
-                    ],
-                    // use style-loader in development
-                    fallback: "style-loader"
-                })
+                    ]
+
+
             },
             {
                 test: /\.pug$/,
@@ -90,12 +95,12 @@ let conf = {
                             name: '[name].html'
                         }
                     },
-
                     {
                         loader: 'pug-html-loader',
                         options: {
                             pretty: true
                         }
+
 
                     }
                 ]
@@ -106,34 +111,14 @@ let conf = {
                     {
                         loader: 'file-loader',
                         options: {
-                            name: '[path][name].[ext]'
+                            name: 'images/[name].[ext]'
                         }
-                    },
-                    /*{
-                        loader: 'img-loader',
-                        options: {
-                            enabled: process.env.NODE_ENV === 'production',
-                            gifsicle: {
-                                interlaced: false
-                            },
-                            mozjpeg: {
-                                progressive: true,
-                                arithmetic: false
-                            },
-                            optipng: false, // disabled
-                            pngquant: {
-                                floyd: 0.5,
-                                speed: 2
-                            },
-                            svgo: {
-                                plugins: [
-                                    { removeTitle: true },
-                                    { convertPathData: false }
-                                ]
-                            }
-                        }
-                    }*/
+                    }
+                ],
+                exclude: [path.resolve(__dirname, 'app', 'public', 'fonts')],
+                include: [
 
+                    path.resolve(__dirname, 'app', 'public', 'images')
                 ]
             },
             {
@@ -142,12 +127,15 @@ let conf = {
                     {
                         loader: 'file-loader',
                         options: {
-                            name: '[path][name].[ext]'
-
+                            name: 'fonts/[name].[ext]',
+                            publicPath: '../'
                         }
                     }
+                ],
+                include: [
+                    path.resolve(__dirname, 'node_modules'),
+                    path.resolve(__dirname, 'app', 'public', 'fonts')
                 ]
-
 
             }
 
@@ -156,8 +144,13 @@ let conf = {
     },
 
     plugins: [
-        extractStyle,
-        new CleanWebpackPlugin(['build'])
+        new MiniCssExtractPlugin({
+            filename: 'css/style.[contenthash].css',
+        }),
+        new CleanWebpackPlugin(['build']),
+        new WebpackMd5Hash()
+
+
     ],
 
 
