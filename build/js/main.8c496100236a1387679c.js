@@ -127,7 +127,7 @@ eval("// .main scripts goes here\n//# sourceURL=[module]\n//# sourceMappingURL=d
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\n\n__webpack_require__(/*! ../sass/main.sass */ \"./app/source/sass/main.sass\");\n\n__webpack_require__(/*! ./master.js */ \"./app/source/entry/master.js\");//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9hcHAvc291cmNlL2VudHJ5L2VudHJ5LmpzPzQ0NjgiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7QUFBQTs7QUFJQSIsImZpbGUiOiIuL2FwcC9zb3VyY2UvZW50cnkvZW50cnkuanMuanMiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgJy4uL3Nhc3MvbWFpbi5zYXNzJ1xyXG5cclxuLy9pbXBvcnQgJy4uL3BhZ2VzL2luZGV4LnB1ZydcclxuXHJcbmltcG9ydCAnLi9tYXN0ZXIuanMnO1xyXG5cclxuXHJcblxyXG5cclxuIl0sInNvdXJjZVJvb3QiOiIifQ==\n//# sourceURL=webpack-internal:///./app/source/entry/entry.js\n");
+eval("\n\n__webpack_require__(/*! ../sass/main.sass */ \"./app/source/sass/main.sass\");\n\n__webpack_require__(/*! ./master.js */ \"./app/source/entry/master.js\");//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9hcHAvc291cmNlL2VudHJ5L2VudHJ5LmpzPzQ0NjgiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7QUFBQTs7QUFNQSIsImZpbGUiOiIuL2FwcC9zb3VyY2UvZW50cnkvZW50cnkuanMuanMiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgJy4uL3Nhc3MvbWFpbi5zYXNzJ1xyXG5cclxuXHJcblxyXG4vL2ltcG9ydCAnLi4vcGFnZXMvaW5kZXgucHVnJ1xyXG5cclxuaW1wb3J0ICcuL21hc3Rlci5qcyc7XHJcblxyXG5cclxuXHJcblxyXG5cclxuXHJcbiJdLCJzb3VyY2VSb290IjoiIn0=\n//# sourceURL=webpack-internal:///./app/source/entry/entry.js\n");
 
 /***/ }),
 

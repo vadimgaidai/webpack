@@ -95,13 +95,12 @@ let conf = {
                         options: {
                             name: 'images/[name].[ext]'
                         }
-                    }
+                    },
+
+                    'img-loader',
                 ],
                 exclude: [path.resolve(__dirname, 'app', 'public', 'fonts')],
-                include: [
 
-                    path.resolve(__dirname, 'app', 'public', 'images')
-                ]
             },
             {
                 test: /\.(woff|woff2|eot|ttf|otf|svg)(\?.*$|$)/,
@@ -136,7 +135,8 @@ let conf = {
             inject: false,
             template: '!!pug-loader?pretty=true!app/source/pages/index.pug',
             // Optional
-            mobile: true
+            mobile: true,
+            attrs: ['img:src']
 
         })
 
