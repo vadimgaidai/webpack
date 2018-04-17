@@ -1,6 +1,6 @@
 @font-face {
   font-family: OpenSansBold;
-  src: url("/app/public/fonts/OpenSansBold.ttf");
+  src: url(../fonts/OpenSansBold.ttf);
   font-weight: normal;
   font-style: normal;
 }
