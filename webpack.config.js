@@ -8,7 +8,7 @@ let CleanWebpackPlugin = require("clean-webpack-plugin");
 let MiniCssExtractPlugin = require("mini-css-extract-plugin");
 let WebpackMd5Hash = require('webpack-md5-hash');
 let HtmlWebpackPlugin = require('html-webpack-plugin');
-let SvgStore = require('webpack-svgstore-plugin');
+let SVGSpritemapPlugin = require('svg-spritemap-webpack-plugin');
 
 
 
@@ -120,27 +120,7 @@ let conf = {
                 ]
 
             }
-            /*{
-                test: /\.svg$/,
-                use: [
-                    {
-                        loader: 'file-loader',
-                        options: {
-                            name: 'sprite/sprite.svg'
-                        }
-                    },
-                    {
-                        loader: 'svg-sprite-loader',
-                        options: {
-                            extract: true,
-                            spriteFilename: "sprite.svg"
-                        }
-                    },
-                    'svg-fill-loader',
-                    'svgo-loader'
-                ],
-                include:  path.resolve(__dirname, 'app', 'public', 'svg')
-            }*/
+
 
         ]
     },
@@ -160,19 +140,27 @@ let conf = {
             attrs: ['img:src']
 
         }),
-        new SvgStore({
-            // svgo options
-            svgoOptions: {
-                plugins: [
-                    {
-                        removeTitle: true
 
-
-                    }
-                ]
+        new SVGSpritemapPlugin({
+            src: 'app/public/svg/*.svg',
+            filename: 'sprite/sprite.svg',
+            prefix: 'icon-',
+            gutter: 2,
+            svgo:{
+                removeDoctype: false
             },
-            prefix: 'svg-icon-'
+            svg4everybody: {
+                nosvg: true, // shiv <svg> and <use> elements and use image fallbacks
+                polyfill: true // polyfill <use> elements for External Content
+               
+            }
+
+        }),
+        new webpack.ProvidePlugin({
+            $: 'jquery',
+            jQuery: 'jquery'
         })
+
 
 
 
@@ -180,7 +168,10 @@ let conf = {
     ],
 
 
-    devtool: "eval-source-map"
+
+
+
+    devtool: "eval"
 
 
 
@@ -194,7 +185,7 @@ module.exports = (env, options) => {
 
     conf.devtool = prodaction
                             ?   "source-map"
-                            :   "eval-source-map";
+                            :   "eval";
 
 
     return conf;

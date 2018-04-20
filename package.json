@@ -34,17 +34,15 @@
     "pug-loader": "^2.4.0",
     "sass-loader": "^6.0.7",
     "style-loader": "^0.20.3",
-    "svg-fill-loader": "0.0.8",
-    "svg-sprite-loader": "^3.7.3",
-    "svgo-loader": "^2.1.0",
+    "svg-spritemap-webpack-plugin": "^2.2.0",
     "webpack": "^4.4.1",
     "webpack-cli": "^2.0.13",
     "webpack-dev-server": "^3.1.1",
-    "webpack-md5-hash": "0.0.6",
-    "webpack-svgstore-plugin": "^4.0.2"
+    "webpack-md5-hash": "0.0.6"
   },
   "dependencies": {
-    "bootstrap": "^4.0.0",
-    "normalize.css": "^8.0.0"
+    "jquery": "^3.3.1",
+    "normalize.css": "^8.0.0",
+    "svg4everybody": "^2.1.9"
   }
 }
