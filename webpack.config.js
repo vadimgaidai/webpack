@@ -8,6 +8,7 @@ let CleanWebpackPlugin = require("clean-webpack-plugin");
 let MiniCssExtractPlugin = require("mini-css-extract-plugin");
 let WebpackMd5Hash = require('webpack-md5-hash');
 let HtmlWebpackPlugin = require('html-webpack-plugin');
+let SvgStore = require('webpack-svgstore-plugin');
 
 
 
@@ -18,7 +19,7 @@ let conf = {
 
     output: {
         //path: path.resolve(__dirname, './app/public'),
-        filename: 'js/[name].[chunkhash].js',
+        filename: 'js/[name].[hash].js',
         path: path.resolve(__dirname, 'build'),
         publicPath: '/'
     },
@@ -88,7 +89,7 @@ let conf = {
             },
 
             {
-                test: /\.(jpe?g|png|gif|svg|ico)$/i,
+                test: /\.(jpe?g|png|gif|ico)(\?.*)?$/i,
                 use: [
                     {
                         loader: 'file-loader',
@@ -103,7 +104,7 @@ let conf = {
 
             },
             {
-                test: /\.(woff|woff2|eot|ttf|otf|svg)(\?.*$|$)/,
+                test: /\.(woff|woff2|eot|ttf|otf)(\?.*$|$)/,
                 use: [
                     {
                         loader: 'file-loader',
@@ -119,7 +120,27 @@ let conf = {
                 ]
 
             }
-
+            /*{
+                test: /\.svg$/,
+                use: [
+                    {
+                        loader: 'file-loader',
+                        options: {
+                            name: 'sprite/sprite.svg'
+                        }
+                    },
+                    {
+                        loader: 'svg-sprite-loader',
+                        options: {
+                            extract: true,
+                            spriteFilename: "sprite.svg"
+                        }
+                    },
+                    'svg-fill-loader',
+                    'svgo-loader'
+                ],
+                include:  path.resolve(__dirname, 'app', 'public', 'svg')
+            }*/
 
         ]
     },
@@ -138,7 +159,23 @@ let conf = {
             mobile: true,
             attrs: ['img:src']
 
+        }),
+        new SvgStore({
+            // svgo options
+            svgoOptions: {
+                plugins: [
+                    {
+                        removeTitle: true
+
+
+                    }
+                ]
+            },
+            prefix: 'svg-icon-'
         })
+
+
+
 
     ],
 
@@ -150,6 +187,7 @@ let conf = {
 
 
 };
+
 
 module.exports = (env, options) => {
     let prodaction = options.mode === 'production';
