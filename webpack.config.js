@@ -39,9 +39,11 @@ let conf = {
         rules: [
             {
                 test: /\.js$/,
-                loader: 'babel-loader',
-                //execlude: '/node_modules/'
+                exclude: /(node_modules)/,
+                loader: 'babel-loader'
+
             },
+
             {
                 test: /\.(css|sass)$/i,
 
@@ -147,7 +149,9 @@ let conf = {
             prefix: 'icon-',
             gutter: 2,
             svgo:{
-                removeDoctype: false
+                removeDoctype: false,
+                removeViewBox: false,
+                removeUnusedNS: true
             },
             svg4everybody: {
                 nosvg: true, // shiv <svg> and <use> elements and use image fallbacks
