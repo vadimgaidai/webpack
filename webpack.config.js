@@ -44,6 +44,7 @@ let conf = {
 
             },
 
+
             {
                 test: /\.(css|sass)$/i,
 
@@ -90,6 +91,7 @@ let conf = {
 
             },
 
+
             {
                 test: /\.(jpe?g|png|gif|ico)(\?.*)?$/i,
                 use: [
@@ -100,7 +102,27 @@ let conf = {
                         }
                     },
 
-                    'img-loader',
+                    //'img-loader',
+                    {
+                        loader: 'img-loader',
+                        options: {
+                            enabled: process.env === 'production',
+                            gifsicle: {
+                                interlaced: false
+                            },
+                            mozjpeg: {
+                                progressive: true,
+                                arithmetic: false
+                            },
+                            optipng: false, // disabled
+                            pngquant: {
+                                floyd: 0.5,
+                                speed: 2
+                            }
+
+                        }
+                    }
+                    //'img-loader',
                 ],
                 exclude: [path.resolve(__dirname, 'app', 'public', 'fonts')],
 
@@ -121,7 +143,41 @@ let conf = {
                     path.resolve(__dirname, 'app', 'public', 'fonts')
                 ]
 
+            },
+            {
+                test: /\.pug$/,
+                use: [
+
+
+                    {
+                        loader: 'pug-loader',
+                        options: {
+                            pretty: true
+
+                        }
+
+                    }
+                ],
+                include: [
+                    path.resolve(__dirname, 'app')
+
+                ]
+
+
+
             }
+            /*{ test: /\.html$/, loader: 'html-loader', exclude: /index\.html$/ },
+            {
+                test: /index\.html$/,
+                loader: 'html',
+                query: {
+                    interpolate: true,
+                    minimize: false,
+                    ignoreCustomFragments: [/\{\{.*?}}/],
+                    attrs: ['img:src', 'link:href']
+                }
+            }*/
+
 
 
         ]
@@ -136,15 +192,18 @@ let conf = {
         new HtmlWebpackPlugin({
             // Required
             inject: false,
-            template: '!!pug-loader?pretty=true!app/source/pages/index.pug',
+
+            template: 'app/source/pages/index.pug',
+            //template: require('html-webpack-template-pug'),
+            //template: '!!pug-loader?attrs=img:src?pretty=true!app/source/pages/index.pug',
             // Optional
-            mobile: true,
-            attrs: ['img:src']
+            mobile: true
+
 
         }),
 
-        new SVGSpritemapPlugin({
-            src: 'app/public/svg/*.svg',
+       new SVGSpritemapPlugin({
+            src: 'app/public/svg/!*.svg',
             filename: 'sprite/sprite.svg',
             prefix: 'icon-',
             gutter: 2,
@@ -156,7 +215,7 @@ let conf = {
             svg4everybody: {
                 nosvg: true, // shiv <svg> and <use> elements and use image fallbacks
                 polyfill: true // polyfill <use> elements for External Content
-               
+
             }
 
         }),
@@ -165,14 +224,7 @@ let conf = {
             jQuery: 'jquery'
         })
 
-
-
-
-
     ],
-
-
-
 
 
     devtool: "eval"
