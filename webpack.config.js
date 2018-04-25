@@ -9,6 +9,8 @@ let MiniCssExtractPlugin = require("mini-css-extract-plugin");
 let WebpackMd5Hash = require('webpack-md5-hash');
 let HtmlWebpackPlugin = require('html-webpack-plugin');
 let SVGSpritemapPlugin = require('svg-spritemap-webpack-plugin');
+let OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+let UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 
 
 
@@ -21,14 +23,14 @@ let conf = {
         //path: path.resolve(__dirname, './app/public'),
         filename: 'js/[name].[hash].js',
         path: path.resolve(__dirname, 'build'),
-        publicPath: '/'
+       // publicPath: '/'
     },
     stats: { //object
         assets: true,
         colors: true,
         errors: true,
-        errorDetails: true,
-        hash: true
+        errorDetails: true
+
     },
     devServer:{
         compress: true,
@@ -61,8 +63,8 @@ let conf = {
                         {
                             loader: 'css-loader',
                             options: {
-                                sourceMap: true
-
+                                sourceMap: true,
+                                minimize: (process.env.NODE_ENV === 'production')
                             }
 
                         },
@@ -102,11 +104,12 @@ let conf = {
                         }
                     },
 
-                    //'img-loader',
+
                     {
                         loader: 'img-loader',
                         options: {
-                            enabled: process.env === 'production',
+                            enabled: process.env.NODE_ENV === 'production',
+
                             gifsicle: {
                                 interlaced: false
                             },
@@ -128,7 +131,7 @@ let conf = {
 
             },
             {
-                test: /\.(woff|woff2|eot|ttf|otf)(\?.*$|$)/,
+                test: /\.(woff|woff2|eot|ttf|otf|svg)(\?.*$|$)/,
                 use: [
                     {
                         loader: 'file-loader',
@@ -148,7 +151,6 @@ let conf = {
                 test: /\.pug$/,
                 use: [
 
-
                     {
                         loader: 'pug-loader',
                         options: {
@@ -163,20 +165,8 @@ let conf = {
 
                 ]
 
-
-
             }
-            /*{ test: /\.html$/, loader: 'html-loader', exclude: /index\.html$/ },
-            {
-                test: /index\.html$/,
-                loader: 'html',
-                query: {
-                    interpolate: true,
-                    minimize: false,
-                    ignoreCustomFragments: [/\{\{.*?}}/],
-                    attrs: ['img:src', 'link:href']
-                }
-            }*/
+
 
 
 
@@ -185,19 +175,18 @@ let conf = {
 
     plugins: [
         new MiniCssExtractPlugin({
-            filename: 'css/style.[contenthash].css',
+            filename: 'css/[name].[contenthash].css',
+
+
         }),
+
         new CleanWebpackPlugin(['build']),
         new WebpackMd5Hash(),
         new HtmlWebpackPlugin({
-            // Required
             inject: false,
-
             template: 'app/source/pages/index.pug',
-            //template: require('html-webpack-template-pug'),
             //template: '!!pug-loader?attrs=img:src?pretty=true!app/source/pages/index.pug',
-            // Optional
-            mobile: true
+            mobile: true,
 
 
         }),
@@ -219,6 +208,13 @@ let conf = {
             }
 
         }),
+
+
+         /*new webpack.DefinePlugin({
+              'process.env': {
+                  NODE_ENV: JSON.stringify('production'),
+              },
+          }),*/
         new webpack.ProvidePlugin({
             $: 'jquery',
             jQuery: 'jquery'
@@ -239,9 +235,11 @@ let conf = {
 module.exports = (env, options) => {
     let prodaction = options.mode === 'production';
 
+
     conf.devtool = prodaction
                             ?   "source-map"
                             :   "eval";
+
 
 
     return conf;
