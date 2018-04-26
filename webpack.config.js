@@ -9,20 +9,19 @@ let MiniCssExtractPlugin = require("mini-css-extract-plugin");
 let WebpackMd5Hash = require('webpack-md5-hash');
 let HtmlWebpackPlugin = require('html-webpack-plugin');
 let SVGSpritemapPlugin = require('svg-spritemap-webpack-plugin');
-let OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
-let UglifyJsPlugin = require("uglifyjs-webpack-plugin");
+
 
 
 
 
 let conf = {
 
-    entry: './app/source/entry/entry.js',
+    entry: './development/source/entry/entry.js',
 
     output: {
-        //path: path.resolve(__dirname, './app/public'),
+        //path: path.resolve(__dirname, './development/public'),
         filename: 'js/[name].[hash].js',
-        path: path.resolve(__dirname, 'build'),
+        path: path.resolve(__dirname, 'production'),
        // publicPath: '/'
     },
     stats: { //object
@@ -127,7 +126,7 @@ let conf = {
                     }
                     //'img-loader',
                 ],
-                exclude: [path.resolve(__dirname, 'app', 'public', 'fonts')],
+                exclude: [path.resolve(__dirname, 'development', 'public', 'fonts')],
 
             },
             {
@@ -143,7 +142,7 @@ let conf = {
                 ],
                 include: [
                     path.resolve(__dirname, 'node_modules'),
-                    path.resolve(__dirname, 'app', 'public', 'fonts')
+                    path.resolve(__dirname, 'development', 'public', 'fonts')
                 ]
 
             },
@@ -161,7 +160,7 @@ let conf = {
                     }
                 ],
                 include: [
-                    path.resolve(__dirname, 'app')
+                    path.resolve(__dirname, 'development')
 
                 ]
 
@@ -184,15 +183,15 @@ let conf = {
         new WebpackMd5Hash(),
         new HtmlWebpackPlugin({
             inject: false,
-            template: 'app/source/pages/index.pug',
-            //template: '!!pug-loader?attrs=img:src?pretty=true!app/source/pages/index.pug',
+            template: 'development/source/pages/index.pug',
+            //template: '!!pug-loader?attrs=img:src?pretty=true!development/source/pages/index.pug',
             mobile: true,
 
 
         }),
 
        new SVGSpritemapPlugin({
-            src: 'app/public/svg/!*.svg',
+            src: 'development/public/svg/!*.svg',
             filename: 'sprite/sprite.svg',
             prefix: 'icon-',
             gutter: 2,
@@ -210,11 +209,6 @@ let conf = {
         }),
 
 
-         /*new webpack.DefinePlugin({
-              'process.env': {
-                  NODE_ENV: JSON.stringify('production'),
-              },
-          }),*/
         new webpack.ProvidePlugin({
             $: 'jquery',
             jQuery: 'jquery'
